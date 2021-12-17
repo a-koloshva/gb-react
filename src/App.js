@@ -24,9 +24,16 @@ function App() {
   };
 
   useEffect(() => {
+    let timeout;
     if (messageList[messageList.length - 1]?.author === AUTHORS.HUMAN) {
-      handleAddMessage({ text: responseBot(), author: AUTHORS.BOT });
+      timeout = setTimeout(() => {
+        handleAddMessage({ text: responseBot(), author: AUTHORS.BOT });
+      }, 1000);
     }
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [messageList]);
 
   return (
