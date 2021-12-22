@@ -1,15 +1,46 @@
-import logo from "./logo.svg";
 import "./App.css";
-import Message from "./components/Message";
+import React, { useState } from "react";
+import Form from "./components/Form/Form.js";
+import MessageList from "./components/MessageList/MessageList.js";
+import AUTHORS from "./utils/constants.js";
+import { useEffect } from "react";
 
-const name = "Andrew";
 function App() {
+  const [messageList, setMessageList] = useState([]);
+
+  const handleAddMessage = (newMessage) => {
+    setMessageList((prevMessageList) => [...prevMessageList, newMessage]);
+  };
+
+  const handleSubmit = (text) => {
+    const newMessage = { text, author: AUTHORS.HUMAN };
+    handleAddMessage(newMessage);
+  };
+
+  const responseBot = () => {
+    const arrayMessages = ["Что?", "Кто это?"];
+    const randomNumber = Math.floor(Math.random() * arrayMessages.length);
+    return arrayMessages[randomNumber];
+  };
+
+  useEffect(() => {
+    let timeout;
+    if (messageList[messageList.length - 1]?.author === AUTHORS.HUMAN) {
+      timeout = setTimeout(() => {
+        handleAddMessage({ text: responseBot(), author: AUTHORS.BOT });
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [messageList]);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-
-        <Message name={name} text="Hello, world!" time="11:00" />
+        <Form onSubmit={handleSubmit} />
+        <MessageList messages={messageList} />
       </header>
     </div>
   );
