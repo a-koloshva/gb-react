@@ -1,1 +1,21 @@
+.wrapper {
+  display: flex;
+}
+.form {
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
 
+.dialogsList {
+  padding: 5px;
+  box-sizing: border-box;
+  border: 1px solid red;
+}
+
+.dialogsListItem {
+  color: black;
+  background-color: aqua;
+}
