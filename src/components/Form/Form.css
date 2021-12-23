@@ -1,21 +1,15 @@
-.wrapper {
-  display: flex;
-}
 .form {
-  border: 1px solid black;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin: 20px;
 }
 
-.dialogsList {
-  padding: 5px;
-  box-sizing: border-box;
-  border: 1px solid red;
-}
-
-.dialogsListItem {
-  color: black;
-  background-color: aqua;
+.formInput {
+  margin-right: 10px;
+  width: 200px;
+  height: 30px;
+  font-size: medium;
+  border-radius: 5px;
+  border: 2px solid #282c34;
 }

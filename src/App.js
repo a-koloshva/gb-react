@@ -5,6 +5,7 @@ import MessageList from "./components/MessageList/MessageList";
 import AUTHORS from "./utils/constants.js";
 import { ResponseBot } from "./utils/responseBot";
 import { v4 as uuidv4 } from "uuid";
+import { ChatList } from "./components/chatList/chatList";
 
 function App() {
   const [messageList, setMessageList] = useState([]);
@@ -38,8 +39,15 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Form onSubmit={handleSubmit} />
-        <MessageList messages={messageList} />
+        <div className="wrapper">
+          <ChatList />
+          <div className="formMessages">
+            <div className="messageList">
+              <MessageList messages={messageList} />
+            </div>
+            <Form onSubmit={handleSubmit} />
+          </div>
+        </div>
       </header>
     </div>
   );
