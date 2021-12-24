@@ -17,6 +17,10 @@ const chats = [
     id: "chat4",
     name: "Chat 4",
   },
+  {
+    id: "chat4",
+    name: "Chat 4",
+  },
 ];
 
 export const ChatList = () => {
