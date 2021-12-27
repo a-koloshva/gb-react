@@ -1,38 +1,21 @@
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { Link, Outlet } from "react-router-dom";
 
-const chats = [
-  {
-    id: "chat1",
-    name: "Chat 1",
-  },
-  {
-    id: "chat2",
-    name: "Chat 2",
-  },
-  {
-    id: "chat3",
-    name: "Chat 3",
-  },
-  {
-    id: "chat4",
-    name: "Chat 4",
-  },
-  {
-    id: "chat4",
-    name: "Chat 4",
-  },
-];
-
-export const ChatList = () => {
+export const ChatList = ({ chats }) => {
   return (
-    <List>
-      {chats.map((chat) => (
-        <ListItem disablePadding key={chat.id}>
-          <ListItemButton>
-            <ListItemText primary={chat.name} />
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
+    <>
+      <List>
+        {chats.map((chat) => (
+          <ListItem disablePadding key={chat.id}>
+            <Link to={`/chats/${chat.id}`}>
+              <ListItemButton>
+                <ListItemText primary={chat.name} />
+              </ListItemButton>
+            </Link>
+          </ListItem>
+        ))}
+      </List>
+      <Outlet />
+    </>
   );
 };
