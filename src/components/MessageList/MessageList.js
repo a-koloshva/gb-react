@@ -1,12 +1,11 @@
 import "./MessageList.css";
 import React from "react";
+import { Message } from "./Message/Message";
 
 const MessageList = ({ messages }) => (
   <div>
     {messages.map(({ text, author, id }) => (
-      <div key={id}>
-        {author}: {text}
-      </div>
+      <Message key={id} author={author} text={text} />
     ))}
   </div>
 );
