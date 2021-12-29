@@ -1,9 +1,11 @@
 import "./App.css";
-import React, { useState } from "react";
-import Form from "./components/Form/Form.js";
-import MessageList from "./components/MessageList/MessageList.js";
+import React, { useState, useEffect } from "react";
+import Form from "./components/Form/Form";
+import MessageList from "./components/MessageList/MessageList";
 import AUTHORS from "./utils/constants.js";
-import { useEffect } from "react";
+import { ResponseBot } from "./utils/responseBot";
+import { v4 as uuidv4 } from "uuid";
+import { ChatList } from "./components/chatList/chatList";
 
 function App() {
   const [messageList, setMessageList] = useState([]);
@@ -13,21 +15,19 @@ function App() {
   };
 
   const handleSubmit = (text) => {
-    const newMessage = { text, author: AUTHORS.HUMAN };
+    const newMessage = { text, author: AUTHORS.HUMAN, id: uuidv4() };
     handleAddMessage(newMessage);
-  };
-
-  const responseBot = () => {
-    const arrayMessages = ["Что?", "Кто это?"];
-    const randomNumber = Math.floor(Math.random() * arrayMessages.length);
-    return arrayMessages[randomNumber];
   };
 
   useEffect(() => {
     let timeout;
     if (messageList[messageList.length - 1]?.author === AUTHORS.HUMAN) {
       timeout = setTimeout(() => {
-        handleAddMessage({ text: responseBot(), author: AUTHORS.BOT });
+        handleAddMessage({
+          text: ResponseBot(),
+          author: AUTHORS.BOT,
+          id: uuidv4(),
+        });
       }, 1000);
     }
 
@@ -39,8 +39,15 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Form onSubmit={handleSubmit} />
-        <MessageList messages={messageList} />
+        <div className="wrapper">
+          <ChatList />
+          <div className="formMessages">
+            <div className="messageList">
+              <MessageList messages={messageList} />
+            </div>
+            <Form onSubmit={handleSubmit} />
+          </div>
+        </div>
       </header>
     </div>
   );
