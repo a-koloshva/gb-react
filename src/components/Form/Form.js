@@ -15,7 +15,7 @@ function Form({ onSubmit }) {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event?.preventDefault && event.preventDefault();
 
     setValue("");
     onSubmit(value);

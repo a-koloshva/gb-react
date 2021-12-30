@@ -1,5 +1,5 @@
 export const SHOW_NAME = "SHOW_NAME";
 
-export const showName = {
+export const toggleName = {
   type: SHOW_NAME,
 };

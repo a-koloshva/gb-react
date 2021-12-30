@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import Chats from "../Chats/Chats";
 import { NoMatch } from "../NoMatch/nomatch";
 import { Home } from "../Home/home";
-import { Profile } from "../Profile/profile";
+import Profile from "../Profile/profile";
 import { ChatList } from "../chatList/chatList";
 
 const initialChats = [
