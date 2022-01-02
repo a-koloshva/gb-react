@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import Chats from "../Chats/Chats";
 import { NoMatch } from "../NoMatch/nomatch";
 import { Home } from "../Home/home";
-import { Profile } from "../Profile/profile";
-import { ChatList } from "../ChatList/ChatList";
+import Profile from "../Profile/profile";
+import { ChatList } from "../chatList/chatList";
 
 const initialChats = [
   {
@@ -43,9 +43,32 @@ export const Router = () => {
 
   return (
     <BrowserRouter>
-      <Link to="/">HOME</Link>
-      <Link to="/chats">CHATS</Link>
-      <Link to="/profile">PROFILE</Link>
+      <ul>
+        <li>
+          <NavLink
+            style={(props) => ({ color: props.isActive ? "green" : "blue" })}
+            to="/"
+          >
+            HOME
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            style={(props) => ({ color: props.isActive ? "green" : "blue" })}
+            to="/chats"
+          >
+            CHATS
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            style={(props) => ({ color: props.isActive ? "green" : "blue" })}
+            to="/profile"
+          >
+            PROFILE
+          </NavLink>
+        </li>
+      </ul>
 
       <Routes>
         <Route path="/" element={<Home />} />

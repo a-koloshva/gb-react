@@ -15,19 +15,16 @@ function Form({ onSubmit }) {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event?.preventDefault && event.preventDefault();
 
     setValue("");
     onSubmit(value);
+    inputRef.current.focus();
   };
 
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
-
-  const handleFocus = () => {
-    inputRef.current.focus();
-  };
 
   return (
     <form onSubmit={handleSubmit} className="form">
@@ -48,7 +45,6 @@ function Form({ onSubmit }) {
         className="formInput"
       /> */}
       <Button
-        onClick={handleFocus}
         type="submit"
         variant="contained"
         endIcon={<SendIcon />}
