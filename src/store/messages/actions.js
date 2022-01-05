@@ -1,3 +1,7 @@
+import AUTHORS from "../../utils/constants";
+import { ResponseBot } from "../../utils/responseBot";
+import { v4 as uuidv4 } from "uuid";
+
 export const ADD_MESSAGE = "MESSAGES::ADD_MESSAGE";
 export const DELETE_MESSAGE = "MESSAGES::DELETE_MESSAGE";
 
@@ -16,3 +20,22 @@ export const deleteMessage = (messageId, chatId) => ({
     chatId,
   },
 });
+
+export const addMessageWithReply = (newMessage, chatId) => (dispatch) => {
+  dispatch(addMessage(newMessage, chatId));
+
+  if (newMessage.author !== AUTHORS.BOT) {
+    setTimeout(() => {
+      dispatch(
+        addMessage(
+          {
+            text: ResponseBot(),
+            author: AUTHORS.BOT,
+            id: uuidv4(),
+          },
+          chatId
+        )
+      );
+    }, 1000);
+  }
+};
