@@ -21,11 +21,15 @@ export const deleteMessage = (messageId, chatId) => ({
   },
 });
 
+let timeout;
+
 export const addMessageWithReply = (newMessage, chatId) => (dispatch) => {
   dispatch(addMessage(newMessage, chatId));
 
+  clearTimeout(timeout);
+
   if (newMessage.author !== AUTHORS.BOT) {
-    setTimeout(() => {
+    timeout = setTimeout(() => {
       dispatch(
         addMessage(
           {
