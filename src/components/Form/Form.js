@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Form.css";
 
 import SendIcon from "@mui/icons-material/Send";
-// import Input from "@mui/material/Input";
 import { Button } from "@mui/material";
 
 function Form({ onSubmit }) {
