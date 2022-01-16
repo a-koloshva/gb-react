@@ -1,3 +1,6 @@
+import { auth } from "../../service/firebase";
+import { onAuthStateChanged } from "@firebase/auth";
+
 export const SHOW_NAME = "PROFILE::SHOW_NAME";
 export const SET_NAME = "PROFILE::SET_NAME";
 export const SIGN_IN = "PROFILE::SIGN_IN";
@@ -19,3 +22,13 @@ export const signOut = () => ({
 export const signIn = () => ({
   type: SIGN_IN,
 });
+
+export const initAuthTracking = () => (dispatch) => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      dispatch(signIn());
+    } else {
+      dispatch(signOut());
+    }
+  });
+};
