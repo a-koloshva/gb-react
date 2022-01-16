@@ -1,18 +1,14 @@
 import { useState } from "react";
-// import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { logIn, signUp } from "../../service/firebase";
-import { signIn } from "../../store/profile/actions";
 
 export const Home = ({ isSignUp }) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [error, setError] = useState("");
-  // const dispatch = useDispatch();
 
   const handleClick = async (e) => {
     e.preventDefault();
-    // dispatch(signIn());
     try {
       if (isSignUp) {
         await signUp(email, pass);

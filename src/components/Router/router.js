@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { onAuthStateChanged } from "@firebase/auth";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import Chats from "../Chats/Chats";
 import { NoMatch } from "../NoMatch/nomatch";
@@ -9,16 +8,15 @@ import { ChatList } from "../chatList/chatList";
 import { Weather } from "../Weather";
 import { PrivateOutlet } from "../PrivateOutlet";
 import { PublicOutlet } from "../PublicOutlet";
-import { auth } from "../../service/firebase";
 import { useDispatch } from "react-redux";
-import { initAuthTracking, signIn, signOut } from "../../store/profile/actions";
+import { initAuthTracking } from "../../store/profile/actions";
 
 export const Router = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(initAuthTracking());
-  }, []);
+  });
 
   return (
     <BrowserRouter>
