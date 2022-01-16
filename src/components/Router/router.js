@@ -6,6 +6,8 @@ import { Home } from "../Home/home";
 import Profile from "../Profile/profile";
 import { ChatList } from "../chatList/chatList";
 import { Weather } from "../Weather";
+import { PrivateOutlet } from "../PrivateOutlet";
+import { PublicOutlet } from "../PublicOutlet";
 
 export const Router = () => (
   <BrowserRouter>
@@ -45,11 +47,18 @@ export const Router = () => (
     </ul>
 
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="chats" element={<ChatList />}>
-        <Route path=":chatId" element={<Chats />} />
+      <Route path="/" element={<PublicOutlet />}>
+        <Route path="" element={<Home />} />
       </Route>
-      <Route path="/profile" element={<Profile />} />
+      <Route path="chats" element={<PrivateOutlet />}>
+        <Route path="" element={<ChatList />}>
+          <Route path=":chatId" element={<Chats />} />
+        </Route>
+      </Route>
+      <Route path="/profile" element={<PrivateOutlet />}>
+        <Route path="" element={<Profile />} />
+      </Route>
+
       <Route path="/weather" element={<Weather />} />
 
       <Route path="*" element={<NoMatch />} />

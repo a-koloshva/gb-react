@@ -33,7 +33,7 @@ export const Weather = () => {
             <p>
               {weather.name}, {weather.sys.country}
             </p>
-            <p>{weather.main.temp}</p>
+            <p>{weather.main.temp}&deg;C</p>
           </div>
         ) : (
           ""
