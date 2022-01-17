@@ -1,13 +1,12 @@
 import "./Chats.css";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import Form from "../Form/Form";
 import MessageList from "../MessageList/MessageList";
 import AUTHORS from "../../utils/constants.js";
-import { ResponseBot } from "../../utils/responseBot";
 import { v4 as uuidv4 } from "uuid";
 import { Navigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addMessage } from "../../store/messages/actions";
+import { addMessageWithReply } from "../../store/messages/actions";
 import {
   selectMessages,
   selectMessagesByChatId,
@@ -26,35 +25,13 @@ function Chats() {
   const dispatch = useDispatch();
 
   const onAddMessage = (newMessage, chatId) => {
-    dispatch(addMessage(newMessage, chatId));
+    dispatch(addMessageWithReply(newMessage, chatId));
   };
 
   const handleSubmit = (text) => {
     const newMessage = { text, author: AUTHORS.HUMAN, id: uuidv4() };
     onAddMessage(newMessage, chatId);
   };
-
-  useEffect(() => {
-    let timeout;
-    if (
-      messages[chatId]?.[messages[chatId].length - 1]?.author === AUTHORS.HUMAN
-    ) {
-      timeout = setTimeout(() => {
-        onAddMessage(
-          {
-            text: ResponseBot(),
-            author: AUTHORS.BOT,
-            id: uuidv4(),
-          },
-          chatId
-        );
-      }, 1000);
-    }
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [messages]);
 
   if (!messages[chatId]) {
     return <Navigate to="/chats" replace />;
