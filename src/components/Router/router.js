@@ -5,6 +5,7 @@ import { NoMatch } from "../NoMatch/nomatch";
 import { Home } from "../Home/home";
 import Profile from "../Profile/profile";
 import { ChatList } from "../chatList/chatList";
+import { Weather } from "../Weather";
 
 export const Router = () => (
   <BrowserRouter>
@@ -33,6 +34,14 @@ export const Router = () => (
           PROFILE
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          style={(props) => ({ color: props.isActive ? "green" : "blue" })}
+          to="/weather"
+        >
+          WEATHER
+        </NavLink>
+      </li>
     </ul>
 
     <Routes>
@@ -41,6 +50,7 @@ export const Router = () => (
         <Route path=":chatId" element={<Chats />} />
       </Route>
       <Route path="/profile" element={<Profile />} />
+      <Route path="/weather" element={<Weather />} />
 
       <Route path="*" element={<NoMatch />} />
     </Routes>
