@@ -1,42 +1,26 @@
+import { useEffect } from "react";
 import { connect } from "react-redux";
-// import { connect, useDispatch, useSelector, shallowEqual } from "react-redux";
-// import { selectShowName, selectUserName } from "../../store/profile/selectors";
-import { setName, toggleName } from "../../store/profile/actions";
+import { logOut } from "../../service/firebase";
+import {
+  initUserData,
+  setNameInDb,
+  setShowNameInDb,
+} from "../../store/profile/actions";
 import Form from "../Form/Form";
-
-// const Profile = () => {
-//   const showName = useSelector(selectShowName, shallowEqual);
-//   const userName = useSelector(selectUserName, shallowEqual);
-//   const dispatch = useDispatch();
-
-//   const handleChange = () => {
-//     dispatch(toggleName);
-//   };
-
-//   const handleSubmit = (newName) => {
-//     dispatch(setName(newName));
-//   };
-
-//   return (
-//     <>
-//       <h3>THIS IS PROFILE</h3>
-//       <input type="checkbox" checked={showName} onChange={handleChange} />
-//       {showName && <span>{userName}</span>}
-//       <Form onSubmit={handleSubmit} />
-//     </>
-//   );
-// };
-
-// export default Profile;
 
 const ProfileForConnect = ({
   showName,
   userName,
   changeName,
   toggleShowName,
+  connectToDb,
 }) => {
-  const handleChange = () => {
-    toggleShowName();
+  useEffect(() => {
+    connectToDb();
+  });
+
+  const handleChange = (e) => {
+    toggleShowName(e.target.checked);
   };
 
   const handleSubmit = (newName) => {
@@ -46,6 +30,7 @@ const ProfileForConnect = ({
   return (
     <>
       <h3>THIS IS PROFILE</h3>
+      <button onClick={logOut}>SignOut</button>
       <input type="checkbox" checked={showName} onChange={handleChange} />
       {showName && <span>{userName}</span>}
       <Form onSubmit={handleSubmit} />
@@ -59,8 +44,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchtoProps = {
-  changeName: setName,
-  toggleShowName: () => toggleName,
+  changeName: setNameInDb,
+  toggleShowName: setShowNameInDb,
+  connectToDb: initUserData,
 };
 
 const ConnectedProfile = connect(

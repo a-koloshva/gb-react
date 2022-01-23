@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import Chats from "../Chats/Chats";
 import { NoMatch } from "../NoMatch/nomatch";
@@ -6,53 +6,73 @@ import { Home } from "../Home/home";
 import Profile from "../Profile/profile";
 import { ChatList } from "../chatList/chatList";
 import { Weather } from "../Weather";
+import { PrivateOutlet } from "../PrivateOutlet";
+import { PublicOutlet } from "../PublicOutlet";
+import { useDispatch } from "react-redux";
+import { initAuthTracking } from "../../store/profile/actions";
 
-export const Router = () => (
-  <BrowserRouter>
-    <ul>
-      <li>
-        <NavLink
-          style={(props) => ({ color: props.isActive ? "green" : "blue" })}
-          to="/"
-        >
-          HOME
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          style={(props) => ({ color: props.isActive ? "green" : "blue" })}
-          to="/chats"
-        >
-          CHATS
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          style={(props) => ({ color: props.isActive ? "green" : "blue" })}
-          to="/profile"
-        >
-          PROFILE
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          style={(props) => ({ color: props.isActive ? "green" : "blue" })}
-          to="/weather"
-        >
-          WEATHER
-        </NavLink>
-      </li>
-    </ul>
+export const Router = () => {
+  const dispatch = useDispatch();
 
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="chats" element={<ChatList />}>
-        <Route path=":chatId" element={<Chats />} />
-      </Route>
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/weather" element={<Weather />} />
+  useEffect(() => {
+    dispatch(initAuthTracking());
+  });
 
-      <Route path="*" element={<NoMatch />} />
-    </Routes>
-  </BrowserRouter>
-);
+  return (
+    <BrowserRouter>
+      <ul>
+        <li>
+          <NavLink
+            style={(props) => ({ color: props.isActive ? "green" : "blue" })}
+            to="/"
+          >
+            HOME
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            style={(props) => ({ color: props.isActive ? "green" : "blue" })}
+            to="/chats"
+          >
+            CHATS
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            style={(props) => ({ color: props.isActive ? "green" : "blue" })}
+            to="/profile"
+          >
+            PROFILE
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            style={(props) => ({ color: props.isActive ? "green" : "blue" })}
+            to="/weather"
+          >
+            WEATHER
+          </NavLink>
+        </li>
+      </ul>
+
+      <Routes>
+        <Route path="/" element={<PublicOutlet />}>
+          <Route path="" element={<Home />} />
+          <Route path="signup" element={<Home isSignUp />} />
+        </Route>
+        <Route path="chats" element={<PrivateOutlet />}>
+          <Route path="" element={<ChatList />}>
+            <Route path=":chatId" element={<Chats />} />
+          </Route>
+        </Route>
+        <Route path="/profile" element={<PrivateOutlet />}>
+          <Route path="" element={<Profile />} />
+        </Route>
+
+        <Route path="/weather" element={<Weather />} />
+
+        <Route path="*" element={<NoMatch />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
