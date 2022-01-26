@@ -1,6 +1,6 @@
 import { SET_NAME, SHOW_NAME, SIGN_IN, SIGN_OUT } from "./actions";
 
-const initialState = {
+export const initialState = {
   name: "default name",
   showName: true,
   isAuthed: false,
